@@ -22,7 +22,7 @@ public class MathGameUI {
         String p2Name = scan.nextLine();
         System.out.print("Enter player 3's name: ");
         String p3Name = scan.nextLine();
-        System.out.println("Enter difficulty: (easy or medium)");
+        System.out.print("Enter difficulty: (easy or medium) ");
         String difficulty = scan.nextLine();
 
         // initialize Player objects and MathGame object

@@ -33,7 +33,8 @@ public class MathGame {
 
     // plays a round of the math game
     public void playRound() {
-        chooseStartingPlayer();  // this helper method (shown below) sets currentPlayer to either player1 or player2
+        chooseStartingPlayer();  // this helper method (shown below) sets currentPlayer
+        resetNumWrong();
         while (!gameOver) {
             printGameState();   // this helper method (shown below) prints the state of the Game
             System.out.println("Current player: " + currentPlayer.getName());
@@ -78,9 +79,11 @@ public class MathGame {
     public void resetGame() {
         player1.reset(); // this method resets the player
         player2.reset();
+        player3.reset();
         gameOver = false;
         currentPlayer = null;
         winner = null;
+        resetNumWrong();
     }
 
     // ------------ PRIVATE HELPER METHODS (internal use only) ------------
@@ -99,29 +102,46 @@ public class MathGame {
 
     // asks a math question and returns true if the player answered correctly, false if not
     private boolean askQuestion() {
-        if (difficulty.equals("easy)")) {
             int operation = (int) (Math.random() * 4) + 1;
             int num1 = (int) (Math.random() * 100) + 1;
             int num2;
             int correctAnswer;
+        if (difficulty.equals("easy)")) {
             System.out.println("Type in your answer as an integer (/ is int division)");
-            if (operation == 1) {
-                num2 = (int) (Math.random() * 100) + 1;
-                System.out.print(num1 + " + " + num2 + " = ");
-                correctAnswer = num1 + num2;
-            } else if (operation == 2) {
-                num2 = (int) (Math.random() * 100) + 1;
-                System.out.print(num1 + " - " + num2 + " = ");
-                correctAnswer = num1 - num2;
-            } else if (operation == 3) {
-                num2 = (int) (Math.random() * 10) + 1;
-                System.out.print(num1 + " * " + num2 + " = ");
-                correctAnswer = num1 * num2;
-            } else {  // option == 4
-                num2 = (int) (Math.random() * 10) + 1;
-                System.out.print(num1 + " / " + num2 + " = ");
-                correctAnswer = num1 / num2;
-            }
+          if (operation == 1) {
+            num2 = (int) (Math.random() * 100) + 1;
+            System.out.print(num1 + " + " + num2 + " = ");
+            correctAnswer = num1 + num2;
+          } else if (operation == 2) {
+            num2 = (int) (Math.random() * 100) + 1;
+            System.out.print(num1 + " - " + num2 + " = ");
+            correctAnswer = num1 - num2;
+          } else if (operation == 3) {
+            num2 = (int) (Math.random() * 10) + 1;
+            System.out.print(num1 + " * " + num2 + " = ");
+            correctAnswer = num1 * num2;
+          } else {  // option == 4
+            num2 = (int) (Math.random() * 10) + 1;
+            System.out.print(num1 + " / " + num2 + " = ");
+            correctAnswer = num1 / num2;
+          }
+        } else if (operation == 1){
+            num2 = (int) (Math.random() * 1000) + 1;
+            System.out.print(num1 + " + " + num2 + " = ");
+            correctAnswer = num1 + num2;
+        } else if (operation == 2) {
+            num2 = (int) (Math.random() * 1000) + 1;
+            System.out.print(num1 + " - " + num2 + " = ");
+            correctAnswer = num1 - num2;
+        } else if (operation == 3) {
+            num2 = (int) (Math.random() * 100) + 1;
+            System.out.print(num1 + " * " + num2 + " = ");
+            correctAnswer = num1 * num2;
+        } else {  // option == 4
+            num2 = (int) (Math.random() * 1000) + 1;
+            System.out.print(num2 + " / " + num1 + " = ");
+            correctAnswer = num2 / num1;
+        }
             int playerAnswer = scanner.nextInt(); // get player's answer using Scanner
             scanner.nextLine(); // clear text buffer after numeric scanner input
 
@@ -130,8 +150,8 @@ public class MathGame {
             } else {
                 return false;
             }
-        }
     }
+
 
     // swaps the currentPlayer to the other player
     private void swapPlayers() {
@@ -147,17 +167,17 @@ public class MathGame {
 
     // sets the winner when the game ends based on the player that missed the question
     private void determineWinner() {
-        if (currentPlayer == player1) {
+        if (currentPlayer == player2) {
             winner = player2;
             player2.incrementWinningStreak();
             player1.resetWins();
             player3.resetWins();
-        }else if(currentPlayer == player2) {
+        } else if (currentPlayer == player3) {
             winner = player3;
             player3.incrementWinningStreak();
             player1.resetWins();
             player2.resetWins();
-        }else{
+        } else {
             winner = player1;
             player1.incrementWinningStreak();
             player2.resetWins();

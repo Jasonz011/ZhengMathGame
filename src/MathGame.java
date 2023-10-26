@@ -10,13 +10,15 @@ public class MathGame {
     private boolean gameOver;
     private Scanner scanner;
     private int numWrong;
+    private String difficulty;
 
     // create MathGame object
-    public MathGame(Player player1, Player player2, Player player3, Scanner scanner) {
+    public MathGame(Player player1, Player player2, Player player3, String difficulty, Scanner scanner) {
         this.player1 = player1;
         this.player2 = player2;
         this.player3 = player3;
         this.scanner = scanner;
+        this.difficulty = difficulty;
         currentPlayer = null; // will get assigned at start of game
         winner = null; // will get assigned when a Player wins
         gameOver = false;
@@ -97,36 +99,37 @@ public class MathGame {
 
     // asks a math question and returns true if the player answered correctly, false if not
     private boolean askQuestion() {
-        int operation = (int) (Math.random() * 4) + 1;
-        int num1 = (int) (Math.random() * 100) + 1;
-        int num2;
-        int correctAnswer;
-        System.out.println("Type in your answer as an integer (/ is int division)");
-        if (operation == 1) {
-            num2 = (int) (Math.random() * 100) + 1;
-            System.out.print(num1 + " + " + num2 + " = ");
-            correctAnswer = num1 + num2;
-        } else if (operation == 2) {
-            num2 = (int) (Math.random() * 100) + 1;
-            System.out.print(num1 + " - " + num2 + " = ");
-            correctAnswer = num1 - num2;
-        } else if (operation == 3) {
-            num2 = (int) (Math.random() * 10) + 1;
-            System.out.print(num1 + " * " + num2 + " = ");
-            correctAnswer = num1 * num2;
-        } else {  // option == 4
-            num2 = (int) (Math.random() * 10) + 1;
-            System.out.print(num1 + " / " + num2 + " = ");
-            correctAnswer = num1 / num2;
-        }
+        if (difficulty.equals("easy)")) {
+            int operation = (int) (Math.random() * 4) + 1;
+            int num1 = (int) (Math.random() * 100) + 1;
+            int num2;
+            int correctAnswer;
+            System.out.println("Type in your answer as an integer (/ is int division)");
+            if (operation == 1) {
+                num2 = (int) (Math.random() * 100) + 1;
+                System.out.print(num1 + " + " + num2 + " = ");
+                correctAnswer = num1 + num2;
+            } else if (operation == 2) {
+                num2 = (int) (Math.random() * 100) + 1;
+                System.out.print(num1 + " - " + num2 + " = ");
+                correctAnswer = num1 - num2;
+            } else if (operation == 3) {
+                num2 = (int) (Math.random() * 10) + 1;
+                System.out.print(num1 + " * " + num2 + " = ");
+                correctAnswer = num1 * num2;
+            } else {  // option == 4
+                num2 = (int) (Math.random() * 10) + 1;
+                System.out.print(num1 + " / " + num2 + " = ");
+                correctAnswer = num1 / num2;
+            }
+            int playerAnswer = scanner.nextInt(); // get player's answer using Scanner
+            scanner.nextLine(); // clear text buffer after numeric scanner input
 
-        int playerAnswer = scanner.nextInt(); // get player's answer using Scanner
-        scanner.nextLine(); // clear text buffer after numeric scanner input
-
-        if (playerAnswer == correctAnswer) {
-            return true;
-        } else {
-            return false;
+            if (playerAnswer == correctAnswer) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
